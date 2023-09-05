@@ -1,4 +1,4 @@
-# vue_study
+# vue3-review
 
 ## Project setup
 ```
