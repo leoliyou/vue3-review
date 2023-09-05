@@ -8,14 +8,14 @@
 
 <fieldset>
   <legend>计算属性和监视演示</legend>
-   姓名：<input type="text" placeholder="显示姓名"/><br />
-   姓名：<input type="text" placeholder="显示姓名"/><br />
-   姓名：<input type="text" placeholder="显示姓名"/><br />
+   姓名：<input type="text" placeholder="显示姓名" v-model="fullName1" /><br />
+   姓名：<input type="text" placeholder="显示姓名" v-model="fullName2" /><br />
+   姓名：<input type="text" placeholder="显示姓名" v-model="fullName3"/><br />
 </fieldset>
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive,computed} from "vue";
+  import { defineComponent, reactive,computed,ref,watch,watchEffect} from "vue";
 export default defineComponent({
   name: "App",
   setup() {
@@ -23,13 +23,33 @@ export default defineComponent({
       firstName: '东',
       lastName: '西'
     })
-    const com = computed(() => {
-      return user.firstName + '_' + user.lastName
+    const fullName1 = computed(() => {
+      return user.firstName + '-' + user.lastName
+    })
+    const fullName2 = computed({
+      get() {
+        return user.firstName + '-' + user.lastName
+      },
+      set(val:string) {
+        const names = val.split('-')
+        user.firstName = names[0]
+        user.lastName = names[1]
+      }
+    })
+    const fullName3= ref('')
+    // watch(user, ({ firstName, lastName }) => {
+    //   fullName3.value = firstName + ' ' + lastName
+    // }, { immediate: true, deep: true })
+
+    watchEffect(() => {
+       fullName3.value= user.firstName + '-' + user.lastName
     })
 
     return {
       user,
-      com
+      fullName1,
+      fullName2,
+      fullName3
     }
   }
 
