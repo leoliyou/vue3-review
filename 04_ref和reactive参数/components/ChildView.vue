@@ -4,13 +4,13 @@
   <!-- <h3>count:{{ count }}</h3> -->
   <!-- <h3>msg2:{{ msg2 }}</h3> -->
   <!-- <h3>msg2:{{ $attrs.msg2 }}</h3> -->
-  <button @click="$emitXxx">分发事件</button>
+  <button @click="emitXxx">分发事件</button>
 </template>
 
 <script lang="ts">
   import { defineComponent } from "vue";
   export default defineComponent({
-    name: "Child",
+    name: "ChildView",
     props: ["msg"],
     emits: ["xxx"],
     setup(props, { attrs, slots, emit }) {
